@@ -1,5 +1,3 @@
-// nadefinujeme globální proměnné
-// ty jsou pak použitelné kdekoliv v programu
 let panacek = document.getElementById("panacek");
 let panacekX;
 let panacekY;
@@ -18,12 +16,9 @@ let pohnout = 35;
 let obrazek = document.querySelector("panacek");
 let skoreElem = document.getElementById("score");
 let skore = 0;
-let pisen = document.getElementById('hudba');
-let cinknuti = document.getElementById('zvukmince');
-let fanfara = document.getElementById('zvukfanfara');
-
-// tato funkce se spustí při načtení stránky
-// tj. ve chvíli, kdy je načtené komplet HTML, CSS a všechny obrázky a zvuky
+let pisen = document.getElementById("hudba");
+let cinknuti = document.getElementById("zvukmince");
+let fanfara = document.getElementById("zvukfanfara");
 
 function nahodneCislo(min, max) {
   return Math.random() * (max - min) + min;
@@ -38,37 +33,22 @@ function priNacteniStranky() {
   panacekY = panacek.offsetTop;
 
   mince.style.position = "absolute";
-  //mince.style.left = randomLeft + "px";
-  //mince.style.top = randomTop + "px";
-
-  //minceX = mince.offsetLeft;
-  //minceY = mince.offsetTop;
 
   novaMince();
-  
-
 }
 
 function umistiPanacka() {
-  // musíme to napsat :)
   panacek.style.top = panacekY + "px";
   panacek.style.left = panacekX + "px";
 }
 
-// funkce pro nahodné vygenerování nové pozice mince
-// a umístění mince na tyto souřadnice
 function novaMince() {
-  // musíme to napsat :)
   minceX = Math.round(Math.random() * (winWidth - minceSirka));
   minceY = Math.round(Math.random() * (winHeight - minceVyska));
   mince.style.left = minceX + "px";
   mince.style.top = minceY + "px";
 }
 
-// tato funkce se zavolá při stisku klávesy
-// do proměnné "udalost" se vloží objekt s parametry události¨
-// kde lze najít např. i vlastnost "key",
-// která obsahuje znak stisknuté klávesy
 function priStiskuKlavesy(event) {
   let keyCode = event.keyCode;
   if (keyCode == 37) {
@@ -87,7 +67,7 @@ function priStiskuKlavesy(event) {
 function jitVlevo() {
   let panacekVlevo = parseInt(panacek.style.left);
   panacek.style.left = panacekVlevo - pohnout + "px";
-  document.getElementById("panacek").src = "obrazky/panacek-vlevo.png";  
+  document.getElementById("panacek").src = "obrazky/panacek-vlevo.png";
   if (panacekVlevo < 0) {
     panacek.style.left = 0;
   }
@@ -120,9 +100,8 @@ function jitDolu() {
   }
   panacekY = panacek.offsetTop;
 }
-// fuknce pro otestování kolize panáčka s mincí
+
 function otestujKolizi() {
-  // musíme to napsat :)
   if (
     !(
       panacekX + panacekSirka < minceX ||
@@ -132,26 +111,21 @@ function otestujKolizi() {
     )
   ) {
     console.log("tačnul mincu");
-	novaMince();
-	skore = skore + 1;
-	if (skore+1){
-		cinknuti.play();
-		cinknuti.volume = 0.5;
-	}
-	skoreElem.textContent = skore;
-	if (skore == 5) {
-		skoreElem.innerHTML = "Jsi vítěz!";
-		fanfara.play();
-	}
+    novaMince();
+    skore = skore + 1;
+    if (skore + 1) {
+      cinknuti.play();
+      cinknuti.volume = 0.5;
+    }
+    skoreElem.textContent = skore;
+    if (skore == 5) {
+      skoreElem.innerHTML = "Jsi vítěz!";
+      fanfara.play();
+    }
   }
 }
 
-function pustitHudbu(){
-pisen.play();	
-pisen.volume = 0.5;
+function pustitHudbu() {
+  pisen.play();
+  pisen.volume = 0.5;
 }
-/*
-if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
-	// panacek a mince se prekryvaji
-}
-*/
